@@ -10,8 +10,10 @@ import Cocoa
 
 class MainView: NSView {
 
+    /*
     override func performKeyEquivalent(with event: NSEvent) -> Bool {
         return true
     }
+    */
     
 }

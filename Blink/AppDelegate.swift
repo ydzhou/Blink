@@ -20,12 +20,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func open(_ sender: AnyObject) {
-        var myWindow: NSWindow? = nil
+        var mainWindow: NSWindow? = nil
         let storyboard = NSStoryboard(name: "Main",bundle: nil)
         let controller: MainViewController = storyboard.instantiateController(withIdentifier: "MainViewController") as! MainViewController
-        myWindow = NSWindow(contentViewController: controller)
-        myWindow?.makeKeyAndOrderFront(self)
-        let vc = NSWindowController(window: myWindow)
+        mainWindow = NSWindow(contentViewController: controller)
+        mainWindow?.makeKeyAndOrderFront(self)
+        let vc = NSWindowController(window: mainWindow)
         vc.showWindow(self)
     }
 
