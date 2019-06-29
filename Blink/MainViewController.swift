@@ -42,16 +42,6 @@ class MainViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        openImages()
-        
-        /*
-        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
-            self.keyDown(with: $0)
-            return $0
-        }
-        */
-        
     }
 
     override var representedObject: Any? {
@@ -65,10 +55,16 @@ class MainViewController: NSViewController {
         
         if (dialog.runModal() == .OK) {
             loadAllImagesUnderCurrentDirectory(url: dialog.url!)
-            displayImagePerIndex(index: imageIndex)
         } else {
             return
         }
+        
+        displayImagePerIndex(index: imageIndex)
+    }
+    
+    func openImages(url: URL) {
+        loadAllImagesUnderCurrentDirectory(url: url)
+        displayImagePerIndex(index: imageIndex)
     }
     
     private func nextImage() {
@@ -95,41 +91,67 @@ class MainViewController: NSViewController {
             print("Failed to retrieve image")
             return
         }
+        self.view.window?.title = images[index].fileName
         imageView.image = image
     }
     
     private func loadAllImagesUnderCurrentDirectory(url: URL) {
         images = [ImageModel]()
         
-        let fileManager:  FileManager = FileManager()
+        if url.hasDirectoryPath {
+            deepLoadAllImages(url: url)
+            sortAllImagesByModificationDate()
+        } else {
+            deepLoadAllImages(url: url.deletingLastPathComponent())
+            sortAllImagesByModificationDate()
+            updateImageIndex(target: url)
+        }
+    }
+    
+    private func deepLoadAllImages(url: URL) {
         do {
-            print(url.deletingLastPathComponent())
-            let urls = try fileManager.contentsOfDirectory(at: url.deletingLastPathComponent(), includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
-            for currentUrl in urls {
-                if isDocumentValid(url: currentUrl) {
-                    try images.append(createImageData(url: currentUrl, fileManager: fileManager))
+            let resourceKeys : [URLResourceKey] = [.creationDateKey, .contentModificationDateKey]
+            let fileEnumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: resourceKeys, options: [.skipsHiddenFiles])!
+            for case let itemUrl as URL in fileEnumerator {
+                if isDocumentValid(url: itemUrl) {
+                    let resourceValues = try itemUrl.resourceValues(forKeys: Set(resourceKeys))
+                    try images.append(createImageData(url: itemUrl, resourceValues: resourceValues))
                 }
             }
-            sortAllImagesByFileName()
-            updateImageIndex(target: url)
         } catch {
             print("Error while loading files: \(error.localizedDescription)")
         }
     }
     
+    private func shallowLoadAllImages(url: URL) {
+         do {
+            let resourceKeys : [URLResourceKey] = [.creationDateKey, .contentModificationDateKey]
+            let urls = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: resourceKeys, options: .skipsHiddenFiles)
+            for itemUrl in urls {
+                if self.isDocumentValid(url: itemUrl) {
+                    let resourceValues = try itemUrl.resourceValues(forKeys: Set(resourceKeys))
+                    try images.append(createImageData(url: itemUrl, resourceValues: resourceValues))
+                }
+            }
+         } catch {
+            print("Error while loading files: \(error.localizedDescription)")
+         }
+    }
+    
     private func isDocumentValid(url: URL) -> Bool {
         let ext = url.pathExtension.lowercased()
-        if (ext == "jpg" || ext == "png") {
+        if (ext == "jpg" || ext == "png" || ext == "jpeg") {
             return true
         }
         return false
     }
     
-    private func createImageData(url: URL, fileManager: FileManager) throws -> ImageModel {
-        let attributes = try fileManager.attributesOfItem(atPath: url.path)
-        let creationDate = attributes[FileAttributeKey.creationDate] as! NSDate
-        let modificationDate = attributes[FileAttributeKey.modificationDate] as! NSDate
-        return ImageModel(url, creationDate, modificationDate)
+    private func createImageData(url: URL, resourceValues: URLResourceValues) throws -> ImageModel {
+        return ImageModel(
+            url,
+            resourceValues.creationDate! as NSDate,
+            resourceValues.contentModificationDate! as NSDate
+        )
     }
 
     private func sortAllImagesByFileName() {
