@@ -1,14 +1,15 @@
 //
-//  ImageModel.swift
+//  ImageData.swift
 //  Blink
 //
-//  Created by Yudi Zhou on 6/28/19.
-//  Copyright © 2019 Zhou, Yudi. All rights reserved.
+//  Created by Yudi Zhou on 6/29/19.
+//  Copyright © 2019 Yudi Zhou. All rights reserved.
 //
 
 import Cocoa
 
-class ImageModel {
+class ImageData {
+
     var url: URL
     var creationDate: NSDate
     var modificationDate: NSDate
@@ -20,4 +21,5 @@ class ImageModel {
         self.creationDate = creationDate
         self.modificationDate = modificationDate
     }
+
 }
