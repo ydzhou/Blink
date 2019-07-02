@@ -61,7 +61,6 @@ class ImageManager {
     }
     
     private func deepLoadAllImages(url: URL) {
-        print(url.absoluteString)
         do {
             let resourceKeys : [URLResourceKey] = [.creationDateKey, .contentModificationDateKey]
             let fileEnumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: resourceKeys, options: [.skipsHiddenFiles])!

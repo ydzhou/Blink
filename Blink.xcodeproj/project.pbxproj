@@ -14,6 +14,7 @@
 		920E106A22C866C200FF3909 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 920E106822C866C200FF3909 /* Main.storyboard */; };
 		920E107322C869C200FF3909 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920E107222C869C200FF3909 /* ImageData.swift */; };
 		920E107522C8C4E600FF3909 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920E107422C8C4E600FF3909 /* ImageManager.swift */; };
+		9290306722C9C39E0083944C /* CenteredClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9290306622C9C39E0083944C /* CenteredClipView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		920E106C22C866C200FF3909 /* Blink.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Blink.entitlements; sourceTree = "<group>"; };
 		920E107222C869C200FF3909 /* ImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
 		920E107422C8C4E600FF3909 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		9290306622C9C39E0083944C /* CenteredClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredClipView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				920E106C22C866C200FF3909 /* Blink.entitlements */,
 				920E107222C869C200FF3909 /* ImageData.swift */,
 				920E107422C8C4E600FF3909 /* ImageManager.swift */,
+				9290306622C9C39E0083944C /* CenteredClipView.swift */,
 			);
 			path = Blink;
 			sourceTree = "<group>";
@@ -142,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9290306722C9C39E0083944C /* CenteredClipView.swift in Sources */,
 				920E107522C8C4E600FF3909 /* ImageManager.swift in Sources */,
 				920E106322C866C100FF3909 /* ImageViewController.swift in Sources */,
 				920E106122C866C100FF3909 /* AppDelegate.swift in Sources */,

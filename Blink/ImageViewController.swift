@@ -11,18 +11,22 @@ import Cocoa
 class ImageViewController: NSViewController {
     private var imageManager: ImageManager?
     
+    private var isActualSize = false
+    
     private var document: Document? {
         return view.window?.windowController?.document as? Document
     }
     
-    @IBOutlet weak var imageView: NSImageView!
+    @IBOutlet var scrollView: NSScrollView!
     
-    @IBAction func next(sender: Any) {
+    @IBOutlet var imageView: NSImageView!
+    
+    @IBAction func next(sender: NSMenuItem) {
         imageManager!.iterateNext()
         setImageView()
     }
     
-    @IBAction func prev(sender: Any) {
+    @IBAction func prev(sender: NSMenuItem) {
         imageManager!.iteratePrev()
         setImageView()
     }
@@ -39,6 +43,16 @@ class ImageViewController: NSViewController {
         imageManager?.sortByModificationDate()
     }
     
+    @IBAction func fitSizeToView(sender: NSMenuItem) {
+        self.isActualSize = false
+        setImageViewSize(image: self.imageView.image!)
+    }
+    
+    @IBAction func actualSize(sender: NSMenuItem) {
+        self.isActualSize = true
+        setImageViewSize(image: self.imageView.image!)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -47,6 +61,7 @@ class ImageViewController: NSViewController {
         super.viewDidAppear()
         
         imageManager = document?.getData()
+        self.scrollView.documentView = self.imageView
         setImageView()
     }
     
@@ -59,11 +74,24 @@ class ImageViewController: NSViewController {
     private func setImageView() {
         do {
             let (image, imageTitle) = try imageManager!.getCurrentImageData()
+            setImageViewSize(image: image)
             imageView.image = image
             self.view.window?.title = imageTitle
         } catch {
             print("Failed to update image view: \(error.localizedDescription)")
         }
+    }
+    
+    private func setImageViewSize(image: NSImage) {
+        var imageViewSize: NSSize?
+        if self.isActualSize {
+            self.imageView.imageScaling = NSImageScaling.scaleNone
+            imageViewSize = NSSize(width: image.size.width, height: image.size.height)
+        } else {
+            self.imageView.imageScaling = NSImageScaling.scaleProportionallyDown
+            imageViewSize = NSSize(width: scrollView.contentSize.width, height: scrollView.contentSize.height)
+        }
+        imageView.setFrameSize(imageViewSize!)
     }
     
 }

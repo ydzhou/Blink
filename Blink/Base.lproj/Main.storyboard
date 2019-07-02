@@ -122,12 +122,17 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Y6v-gE-vXi"/>
-                                        <menuItem title="Show Sidebar" keyEquivalent="s" id="kIP-vf-haE">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                        <menuItem title="Fit Size To View" keyEquivalent="1" id="TZv-As-kyY">
                                             <connections>
-                                                <action selector="toggleSidebar:" target="Ady-hI-5gd" id="iwa-gc-5KM"/>
+                                                <action selector="fitSizeToViewWithSender:" target="Ady-hI-5gd" id="efw-yC-Qze"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Actual Size" keyEquivalent="2" id="ehe-Bg-AZU">
+                                            <connections>
+                                                <action selector="actualSizeWithSender:" target="Ady-hI-5gd" id="mL7-yM-j4I"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="oYi-3l-4qm"/>
                                         <menuItem title="Enter Full Screen" keyEquivalent="f" id="4J7-dP-txa">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                             <connections>
@@ -192,8 +197,7 @@
                 <windowController storyboardIdentifier="Document Window Controller" id="jGA-0Y-lOj" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="Ckk-yw-fiv">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="contentRect" x="196" y="240" width="800" height="600"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <connections>
                             <outlet property="delegate" destination="jGA-0Y-lOj" id="98r-iN-zZc"/>
@@ -205,24 +209,49 @@
                 </windowController>
                 <customObject id="6f7-a7-6o1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="98" y="558"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
                 <viewController storyboardIdentifier="Image View Controller" id="5gI-5U-AMq" customClass="ImageViewController" customModule="Blink" customModuleProvider="target" sceneMemberID="viewController">
-                    <imageView key="view" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="mEO-zt-GOH">
+                    <scrollView key="view" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="TKy-K5-KKg">
                         <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" id="wBb-gU-Ic6"/>
-                    </imageView>
+                        <clipView key="contentView" autoresizesSubviews="NO" drawsBackground="NO" copiesOnScroll="NO" id="Rf3-cb-VHq" customClass="CenteredClipView" customModule="Blink" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CeU-sP-9Xk">
+                                    <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pbN-A4-Lnn">
+                                            <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" id="8hf-R6-hMT"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                            </subviews>
+                        </clipView>
+                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="CgU-Ff-e7b">
+                            <rect key="frame" x="0.0" y="284" width="450" height="16"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="y1b-b3-30w">
+                            <rect key="frame" x="784" y="0.0" width="16" height="300"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
                     <connections>
-                        <outlet property="imageView" destination="mEO-zt-GOH" id="FSa-rv-3Rs"/>
+                        <outlet property="imageView" destination="pbN-A4-Lnn" id="2SV-Vh-qBu"/>
+                        <outlet property="scrollView" destination="TKy-K5-KKg" id="tpU-Nu-0rR"/>
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="837"/>
+            <point key="canvasLocation" x="98" y="1336"/>
         </scene>
     </scenes>
 </document>
