@@ -122,7 +122,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Y6v-gE-vXi"/>
-                                        <menuItem title="Fit Size To View" keyEquivalent="1" id="TZv-As-kyY">
+                                        <menuItem title="Fit Size To Window" keyEquivalent="1" id="TZv-As-kyY">
                                             <connections>
                                                 <action selector="fitSizeToViewWithSender:" target="Ady-hI-5gd" id="efw-yC-Qze"/>
                                             </connections>
@@ -189,7 +189,7 @@
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="73" y="-23"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">

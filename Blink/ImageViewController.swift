@@ -55,6 +55,7 @@ class ImageViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.imageView.autoresizingMask = [.width, .height]
     }
     
     override func viewDidAppear() {
@@ -63,12 +64,6 @@ class ImageViewController: NSViewController {
         imageManager = document?.getData()
         self.scrollView.documentView = self.imageView
         setImageView()
-    }
-    
-    override var representedObject: Any? {
-        didSet {
-            // Update the view, if already loaded.
-        }
     }
     
     private func setImageView() {
@@ -87,9 +82,11 @@ class ImageViewController: NSViewController {
         if self.isActualSize {
             self.imageView.imageScaling = NSImageScaling.scaleNone
             imageViewSize = NSSize(width: image.size.width, height: image.size.height)
+            self.scrollView.contentView.autoresizesSubviews = false
         } else {
             self.imageView.imageScaling = NSImageScaling.scaleProportionallyDown
             imageViewSize = NSSize(width: scrollView.contentSize.width, height: scrollView.contentSize.height)
+            self.scrollView.contentView.autoresizesSubviews = true
         }
         imageView.setFrameSize(imageViewSize!)
     }
