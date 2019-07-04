@@ -11,7 +11,7 @@ import Cocoa
 class ImageViewController: NSViewController {
     private var imageManager: ImageManager?
     
-    private var isActualSize = false
+    var isActualSize = false
     
     private var document: Document? {
         return view.window?.windowController?.document as? Document
@@ -20,6 +20,12 @@ class ImageViewController: NSViewController {
     @IBOutlet var scrollView: NSScrollView!
     
     @IBOutlet var imageView: NSImageView!
+    
+    @IBAction func outputViewFrame(sender: NSMenuItem) {
+        print(self.imageView.frame, self.imageView.bounds)
+        print(self.scrollView.frame, self.scrollView.bounds)
+        print(self.scrollView.contentView.frame, self.scrollView.contentView.bounds)
+    }
     
     @IBAction func next(sender: NSMenuItem) {
         imageManager!.iterateNext()
@@ -79,16 +85,19 @@ class ImageViewController: NSViewController {
     
     private func setImageViewSize(image: NSImage) {
         var imageViewSize: NSSize?
+        let clipView = self.scrollView.contentView as! CenteredClipView
         if self.isActualSize {
             self.imageView.imageScaling = NSImageScaling.scaleNone
             imageViewSize = NSSize(width: image.size.width, height: image.size.height)
-            self.scrollView.contentView.autoresizesSubviews = false
+            clipView.autoresizesSubviews = false
+            clipView.isForceCenter = true
         } else {
             self.imageView.imageScaling = NSImageScaling.scaleProportionallyDown
             imageViewSize = NSSize(width: scrollView.contentSize.width, height: scrollView.contentSize.height)
-            self.scrollView.contentView.autoresizesSubviews = true
+            clipView.autoresizesSubviews = true
         }
         imageView.setFrameSize(imageViewSize!)
+        clipView.isForceCenter = false
     }
     
 }

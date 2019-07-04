@@ -132,6 +132,11 @@
                                                 <action selector="actualSizeWithSender:" target="Ady-hI-5gd" id="mL7-yM-j4I"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Dump Debug Info" keyEquivalent="d" id="OhE-P8-yQC" userLabel="Dump Debug Info">
+                                            <connections>
+                                                <action selector="outputViewFrameWithSender:" target="Ady-hI-5gd" id="Lwb-P6-EIm"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="oYi-3l-4qm"/>
                                         <menuItem title="Enter Full Screen" keyEquivalent="f" id="4J7-dP-txa">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
@@ -215,38 +220,38 @@
         <scene sceneID="hIz-AP-VOD">
             <objects>
                 <viewController storyboardIdentifier="Image View Controller" id="5gI-5U-AMq" customClass="ImageViewController" customModule="Blink" customModuleProvider="target" sceneMemberID="viewController">
-                    <scrollView key="view" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="TKy-K5-KKg">
+                    <scrollView key="view" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="IRC-3P-edF">
                         <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <clipView key="contentView" autoresizesSubviews="NO" drawsBackground="NO" copiesOnScroll="NO" id="Rf3-cb-VHq" customClass="CenteredClipView" customModule="Blink" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                        <clipView key="contentView" drawsBackground="NO" id="Bkt-DM-F59" customClass="CenteredClipView" customModule="Blink" customModuleProvider="target">
+                            <rect key="frame" x="1" y="1" width="798" height="598"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CeU-sP-9Xk">
+                                <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gPc-so-AW1">
                                     <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pbN-A4-Lnn">
+                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="axU-aD-LHf">
                                             <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" id="8hf-R6-hMT"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="Zt4-sp-37l"/>
                                         </imageView>
                                     </subviews>
                                 </view>
                             </subviews>
                         </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="CgU-Ff-e7b">
-                            <rect key="frame" x="0.0" y="284" width="450" height="16"/>
+                        <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="f8n-xp-DoF">
+                            <rect key="frame" x="1" y="583" width="798" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="y1b-b3-30w">
-                            <rect key="frame" x="784" y="0.0" width="16" height="300"/>
+                        <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="T5e-Og-gzX">
+                            <rect key="frame" x="783" y="1" width="16" height="598"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
                     <connections>
-                        <outlet property="imageView" destination="pbN-A4-Lnn" id="2SV-Vh-qBu"/>
-                        <outlet property="scrollView" destination="TKy-K5-KKg" id="tpU-Nu-0rR"/>
+                        <outlet property="imageView" destination="axU-aD-LHf" id="Q0t-EM-dwL"/>
+                        <outlet property="scrollView" destination="IRC-3P-edF" id="tuZ-i3-E54"/>
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
